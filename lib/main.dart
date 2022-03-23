@@ -3,6 +3,10 @@ import 'package:hasheard/connectivity/connection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hasheard/page/register.dart';
+import 'package:hasheard/page/root.dart';
+import 'package:hasheard/page/signin.dart';
+import 'package:hasheard/page/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -27,11 +31,11 @@ class _MyAppState extends State<MyApp> {
           brightness: Brightness.dark,
           bottomSheetTheme:
               const BottomSheetThemeData(backgroundColor: Colors.transparent),
-          fontFamily: 'Poppins',
+          fontFamily: 'IBMPlexSans',
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff073FCF)),
+                  MaterialStateProperty.all(const Color(0xffE2412D)),
             ),
           ),
           textTheme: const TextTheme(
@@ -63,9 +67,9 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.w600, color: Color(0xff272727)),
               button: TextStyle(fontWeight: FontWeight.w700))),
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
-        primaryColor: const Color(0xff073FCF),
+        fontFamily: 'IBMPlexSans',
+        primarySwatch: Colors.red,
+        primaryColor: const Color(0xffE2412D),
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xffffffff),
         ),
@@ -73,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             const BottomSheetThemeData(backgroundColor: Colors.transparent),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(const Color(0xff073FCF)),
+            backgroundColor: MaterialStateProperty.all(const Color(0xffE2412D)),
           ),
         ),
         textTheme: const TextTheme(
@@ -109,130 +113,128 @@ class _MyAppState extends State<MyApp> {
         switch (settings.name) {
           case '/':
             return CupertinoPageRoute(
-                builder: (_) => Container(), settings: settings);
-          // case '/signin':
-          //   return CupertinoPageRoute(
-          //       builder: (_) => const SignInPage(), settings: settings);
-          // case '/register':
-          //   return CupertinoPageRoute(
-          //       builder: (_) => const RegisterPage(), settings: settings);
-          // case '/root':
-          //   return CupertinoPageRoute(
-          //       builder: (_) => const RootPage(), settings: settings);
+                builder: (_) => const RootPage(), settings: settings);
+          case '/signin':
+            return CupertinoPageRoute(
+                builder: (_) => const SignInPage(), settings: settings);
+          case '/register':
+            return CupertinoPageRoute(
+                builder: (_) => const RegisterPage(), settings: settings);
+          case '/root':
+            return CupertinoPageRoute(
+                builder: (_) => const RootPage(), settings: settings);
         }
+        return null;
       },
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text("HasHeard"),
-        ),
-        body: const Center(
-          child: Text("Hasheard"),
-        ),
-      ),
+          appBar: AppBar(
+            title: const Text("HasHeard"),
+          ),
+          body: const Index()),
     );
   }
 }
 
-// class Index extends StatefulWidget {
-//   const Index({Key? key}) : super(key: key);
+class Index extends StatefulWidget {
+  const Index({Key? key}) : super(key: key);
 
-//   @override
-//   State<Index> createState() => _IndexState();
-// }
+  @override
+  State<Index> createState() => _IndexState();
+}
 
-// class _IndexState extends State<Index> {
-//   final Connection _connectivity = Connection.instance;
+class _IndexState extends State<Index> {
+  final Connection _connectivity = Connection.instance;
 
-//   Widget? main2;
-//   String? _token;
-//   bool _internetAlertShown = false;
+  Widget? main2;
+  String? _token;
+  bool _internetAlertShown = false;
 
-//   @override
-//   void initState() {
-//     super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-//     getToken();
-//     _connectivity.initialise();
-//     _connectivity.myStream.listen((source) {
-//       ConnectivityResult result = source.keys.toList()[0];
-//       if (result == ConnectivityResult.none) {
-//         Future.delayed(Duration.zero, () async {
-//           internetAlert(context);
-//           setState(() {
-//             _internetAlertShown = true;
-//           });
-//         });
-//       } else {
-//         if (_internetAlertShown) {
-//           Navigator.pop(context, result);
-//           setState(() {
-//             _internetAlertShown = false;
-//           });
-//         }
-//       }
-//     });
+    getToken();
+    _connectivity.initialise();
+    _connectivity.myStream.listen((source) {
+      ConnectivityResult result = source.keys.toList()[0];
+      if (result == ConnectivityResult.none) {
+        Future.delayed(Duration.zero, () async {
+          internetAlert(context);
+          setState(() {
+            _internetAlertShown = true;
+          });
+        });
+      } else {
+        if (_internetAlertShown) {
+          Navigator.pop(context, result);
+          setState(() {
+            _internetAlertShown = false;
+          });
+        }
+      }
+    });
 
-//     Future.delayed(const Duration(seconds: 1), () {
-//       if (!_internetAlertShown) {
-//         if (_token == null) {
-//           showDialog(
-//               context: context,
-//               builder: (context) => AlertDialog(
-//                     title: const Text("Cannot open Flint"),
-//                     content: const Text("Try again later"),
-//                     actions: [
-//                       TextButton(
-//                         onPressed: () => SystemChannels.platform
-//                             .invokeMethod('SystemNavigator.pop'),
-//                         child: const Text('Tutup'),
-//                       ),
-//                     ],
-//                   ));
-//         } else {
-//           setState(() {
-//             main2 = _token == 'nothing' ? const SignInPage() : const RootPage();
-//           });
-//         }
-//       }
-//     });
-//   }
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!_internetAlertShown) {
+        if (_token == null) {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: const Text("Cannot open Flint"),
+                    content: const Text("Try again later"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => SystemChannels.platform
+                            .invokeMethod('SystemNavigator.pop'),
+                        child: const Text('Tutup'),
+                      ),
+                    ],
+                  ));
+        } else {
+          setState(() {
+            main2 = _token == 'nothing' ? const SignInPage() : const RootPage();
+          });
+        }
+      }
+    });
+  }
 
-//   void getToken() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     String? token = prefs.getString('authToken') ?? 'nothing';
-//     setState(() {
-//       _token = token;
-//     });
-//   }
+  void getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('authToken') ?? 'nothing';
+    setState(() {
+      _token = token;
+    });
+  }
 
-//   void internetAlert(BuildContext context) {
-//     var alert = AlertDialog(
-//       title: const Text('Aplikasi tidak terhubung dengan internet'),
-//       content: const Text('Tutup aplikasi atau coba lagi'),
-//       actions: <Widget>[
-//         TextButton(
-//           onPressed: () =>
-//               SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-//           child: const Text('Tutup'),
-//         ),
-//       ],
-//     );
+  void internetAlert(BuildContext context) {
+    var alert = AlertDialog(
+      title: const Text('Aplikasi tidak terhubung dengan internet'),
+      content: const Text('Tutup aplikasi atau coba lagi'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () =>
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+          child: const Text('Tutup'),
+        ),
+      ],
+    );
 
-//     showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return alert;
-//         });
-//   }
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return main2 ?? const SplashPage();
-//   }
+  @override
+  Widget build(BuildContext context) {
+    return main2 ?? const SplashPage();
+  }
 
-//   @override
-//   void dispose() {
-//     _connectivity.disposeStream();
-//     super.dispose();
-//   }
-// }
+  @override
+  void dispose() {
+    _connectivity.disposeStream();
+    super.dispose();
+  }
+}

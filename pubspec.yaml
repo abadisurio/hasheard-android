@@ -87,6 +87,19 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  
+  fonts:
+    - family: IBMPlexSans
+      fonts:
+        - asset: fonts/IBMPlexSans-Light.ttf
+        - asset: fonts/IBMPlexSans-LightItalic.ttf
+        - asset: fonts/IBMPlexSans-Regular.ttf
+        - asset: fonts/IBMPlexSans-Italic.ttf
+        - asset: fonts/IBMPlexSans-SemiBold.ttf
+        - asset: fonts/IBMPlexSans-SemiBoldItalic.ttf
+    - family: Righteous
+      fonts:
+        - asset: fonts/Righteous-Regular.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
