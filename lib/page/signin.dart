@@ -68,6 +68,10 @@ class _SignInPageState extends State<SignInPage> {
     try {
       await service.signInwithGoogle();
       log("signed in");
+      User? user = FirebaseAuth.instance.currentUser;
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('userUID', user?.uid ?? 'nothing');
+      log(user!.uid);
       Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);
     } catch (e) {
       if (e is FirebaseAuthException) {

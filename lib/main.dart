@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hasheard/connectivity/connection.dart';
@@ -146,6 +148,7 @@ class _IndexState extends State<Index> {
 
   Widget? main2;
   String? _token;
+  String? _userUID;
   bool _internetAlertShown = false;
 
   @override
@@ -175,7 +178,7 @@ class _IndexState extends State<Index> {
 
     Future.delayed(const Duration(seconds: 1), () {
       if (!_internetAlertShown) {
-        if (_token == null) {
+        if (_token == null && _userUID == null) {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -191,7 +194,10 @@ class _IndexState extends State<Index> {
                   ));
         } else {
           setState(() {
-            main2 = _token == 'nothing' ? const SignInPage() : const RootPage();
+            // log(_userUID.toString());
+            main2 = (_token == 'nothing' && _userUID == 'nothing')
+                ? const SignInPage()
+                : const RootPage();
           });
         }
       }
@@ -201,8 +207,10 @@ class _IndexState extends State<Index> {
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('authToken') ?? 'nothing';
+    String? userUID = prefs.getString('userUID') ?? 'nothing';
     setState(() {
       _token = token;
+      _userUID = userUID;
     });
   }
 
