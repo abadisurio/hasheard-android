@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hasheard/services/firebase_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +18,9 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _validateUsername = false;
   bool _validatePassword = false;
+  bool isLoading = false;
 
-  void registerUser() async {
+  void signInUser() async {
     bool isDataFilled = await validateInput();
     if (isDataFilled) {
       showDialog(
@@ -56,6 +60,44 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  void signInUserGoogle() async {
+    setState(() {
+      isLoading = true;
+    });
+    FirebaseService service = FirebaseService();
+    try {
+      await service.signInwithGoogle();
+      log("signed in");
+      Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        showMessage(e.message!);
+      }
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   Future<bool> validateInput() async {
     setState(() {
       usernameController.text.isEmpty
@@ -78,8 +120,8 @@ class _SignInPageState extends State<SignInPage> {
           Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 70),
-              child:
-                  Text('Flint', style: Theme.of(context).textTheme.headline1)),
+              child: Text('HasHeard',
+                  style: Theme.of(context).textTheme.headline1)),
           Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(10),
@@ -118,7 +160,7 @@ class _SignInPageState extends State<SignInPage> {
               child: ElevatedButton(
                 child: const Text('Sign In'),
                 onPressed: () {
-                  registerUser();
+                  signInUser();
                 },
               )),
           Row(
@@ -136,6 +178,22 @@ class _SignInPageState extends State<SignInPage> {
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
+          Container(
+            height: 50,
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: OutlinedButton(
+              // onPressed: () {
+              //   result == null
+              //       ? Navigator.pushNamed(
+              //           context, Constants.signInNavigate)
+              //       : Navigator.pushReplacementNamed(
+              //           context, Constants.homeNavigate);
+              child: const Text('Sign In with Google'),
+              onPressed: () {
+                signInUserGoogle();
+              },
+            ),
+          )
         ],
       ),
     );

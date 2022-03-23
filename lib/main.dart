@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:hasheard/connectivity/connection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import 'package:hasheard/page/signin.dart';
 import 'package:hasheard/page/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -126,11 +129,7 @@ class _MyAppState extends State<MyApp> {
         }
         return null;
       },
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text("HasHeard"),
-          ),
-          body: const Index()),
+      home: const Index(),
     );
   }
 }
