@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hasheard/page/introduction.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("HasHeard"),
-      ),
-      body: const Center(
-        child: Text("hasheard"),
-      ),
-    );
+    return const Introduction();
   }
 }
