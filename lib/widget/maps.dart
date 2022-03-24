@@ -48,7 +48,8 @@ class _MapsWidgetState extends State<MapsWidget> {
     _location.onLocationChanged.listen((l) {
       _controller.animateCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
+          CameraPosition(
+              target: LatLng(l.latitude! - 0.0045, l.longitude!), zoom: 15),
         ),
       );
     });

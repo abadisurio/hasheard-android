@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hasheard/widget/maps.dart';
+import 'package:hasheard/widget/shelter_list.dart';
 
 class RootVictim extends StatefulWidget {
   const RootVictim({Key? key}) : super(key: key);
@@ -14,7 +15,41 @@ class _RootVictimState extends State<RootVictim> {
   final List<bool> isSelected = [true, false, false];
 
   Widget pageOne() {
-    return const MapsWidget();
+    return SizedBox(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          const MapsWidget(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 88.0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 250,
+              child: Card(
+                child: ClipRRect(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0, vertical: 16.0),
+                        child: Text(
+                          "Shelter Near You",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                      Flexible(child: ShelterList()),
+                    ],
+                  ),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(6.0)),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -45,12 +80,6 @@ class _RootVictimState extends State<RootVictim> {
                           bottomIcons[index],
                           size: 35,
                         )))),
-                // Padding(
-                //   padding: const EdgeInsets.all(16.0),
-                //   child: Column(
-                //     children: [Icon(bottomIcons[0]), const Text("Maps")],
-                //   ),
-
                 onPressed: (int index) {
                   pageIndex = index;
                   setState(() {
@@ -71,10 +100,6 @@ class _RootVictimState extends State<RootVictim> {
           ),
         ],
       ),
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child:
-      // ),
     );
   }
 
