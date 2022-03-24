@@ -10,7 +10,8 @@ class RootVictim extends StatefulWidget {
 
 class _RootVictimState extends State<RootVictim> {
   int pageIndex = 0;
-  List<IconData> bottomIcons = [Icons.map_sharp, Icons.person];
+  List<IconData> bottomIcons = [Icons.map_sharp, Icons.sensors, Icons.person];
+  final List<bool> isSelected = [true, false, false];
 
   Widget pageOne() {
     return const MapsWidget();
@@ -18,14 +19,6 @@ class _RootVictimState extends State<RootVictim> {
 
   @override
   Widget build(BuildContext context) {
-    List bottomItems = [
-      pageIndex == 0
-          ? "assets/images/explore_active_icon.svg"
-          : "assets/images/explore_icon.svg",
-      pageIndex == 1
-          ? "assets/images/likes_active_icon.svg"
-          : "assets/images/likes_icon.svg"
-    ];
     return Scaffold(
       appBar: getAppBar(),
       body: Stack(
@@ -36,25 +29,43 @@ class _RootVictimState extends State<RootVictim> {
             padding: const EdgeInsets.all(8.0),
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(16),
               ),
-              elevation: 5,
-              shadowColor: Colors.black.withOpacity(0.5),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(bottomItems.length, (index) {
-                    return IconButton(
-                        onPressed: () {
-                          setState(() {
-                            pageIndex = index;
-                          });
-                        },
-                        icon: Icon(bottomIcons[index]));
-                  }),
-                ),
+              child: ToggleButtons(
+                textStyle: Theme.of(context).textTheme.headline6,
+                borderRadius: BorderRadius.circular(16),
+                fillColor: Colors.red,
+                selectedColor: Colors.white,
+                children: List.generate(
+                    bottomIcons.length,
+                    (index) => (Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 24),
+                        child: Icon(
+                          bottomIcons[index],
+                          size: 35,
+                        )))),
+                // Padding(
+                //   padding: const EdgeInsets.all(16.0),
+                //   child: Column(
+                //     children: [Icon(bottomIcons[0]), const Text("Maps")],
+                //   ),
+
+                onPressed: (int index) {
+                  pageIndex = index;
+                  setState(() {
+                    for (int buttonIndex = 0;
+                        buttonIndex < isSelected.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isSelected[buttonIndex] = true;
+                      } else {
+                        isSelected[buttonIndex] = false;
+                      }
+                    }
+                  });
+                },
+                isSelected: isSelected,
               ),
             ),
           ),
