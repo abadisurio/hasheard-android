@@ -77,7 +77,13 @@ class _RootVictimState extends State<RootVictim> {
   PreferredSizeWidget? getAppBar() {
     return AppBar(
       elevation: 0,
-      title: Text("Flint", style: Theme.of(context).textTheme.headline4),
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(14.0),
+          child: Center(child: Text("Victim")),
+        )
+      ],
+      title: Text("HasHeard", style: Theme.of(context).textTheme.headline4),
       centerTitle: true,
     );
   }

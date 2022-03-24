@@ -73,7 +73,13 @@ class _RootPICState extends State<RootPIC> {
   PreferredSizeWidget? getAppBar() {
     return AppBar(
       elevation: 0,
-      title: Text("Flint", style: Theme.of(context).textTheme.headline4),
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(14.0),
+          child: Center(child: Text("PIC")),
+        )
+      ],
+      title: Text("HasHeard", style: Theme.of(context).textTheme.headline4),
       centerTitle: true,
     );
   }

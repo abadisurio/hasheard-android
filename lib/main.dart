@@ -74,8 +74,9 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'IBMPlexSans',
         primarySwatch: Colors.red,
         primaryColor: const Color(0xffE2412D),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xffffffff),
+        appBarTheme: AppBarTheme(
+          toolbarTextStyle: TextStyle(color: Colors.grey.shade900),
+          backgroundColor: const Color(0xffffffff),
         ),
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.transparent),
