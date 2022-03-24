@@ -13,10 +13,18 @@ class SplashPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.red.shade700,
       body: Center(
-        child: Text(
-          "Flint",
-          style:
-              Theme.of(context).textTheme.headline1?.apply(color: Colors.white),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Image(image: AssetImage('assets/image/grand_logo.png')),
+            Text(
+              "HasHeard",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1
+                  ?.apply(color: Colors.white),
+            ),
+          ],
         ),
       ),
     );
