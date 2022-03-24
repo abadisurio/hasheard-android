@@ -69,9 +69,10 @@ class _MapsWidgetState extends State<MapsWidget> {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 700,
-        ),
+        // padding: EdgeInsets.only(
+        //   bottom: MediaQuery.of(context).size.height - 700,
+        // ),
+        padding: const EdgeInsets.only(bottom: 80),
         initialCameraPosition: CameraPosition(target: _initialcameraposition),
         mapType: MapType.normal,
         onMapCreated: _onMapCreated,
