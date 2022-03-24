@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasheard/page/profile_victim.dart';
 import 'package:hasheard/page/sos_call.dart';
 import 'package:hasheard/widget/maps.dart';
 import 'package:hasheard/widget/shelter_list.dart';
@@ -68,6 +69,10 @@ class _RootVictimState extends State<RootVictim> {
     );
   }
 
+  Widget pageThree() {
+    return const ProfileVictim();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +127,7 @@ class _RootVictimState extends State<RootVictim> {
   Widget getBody() {
     return IndexedStack(
       index: pageIndex,
-      children: [pageOne(), pageTwo()],
+      children: [pageOne(), pageTwo(), pageThree()],
     );
   }
 
