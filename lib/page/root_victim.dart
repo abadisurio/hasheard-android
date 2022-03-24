@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasheard/page/sos_call.dart';
 import 'package:hasheard/widget/maps.dart';
 import 'package:hasheard/widget/shelter_list.dart';
 
@@ -21,7 +22,7 @@ class _RootVictimState extends State<RootVictim> {
         children: [
           const MapsWidget(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 88.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 100.0),
             child: SizedBox(
               width: double.infinity,
               height: 250,
@@ -51,6 +52,22 @@ class _RootVictimState extends State<RootVictim> {
     );
   }
 
+  Widget pageTwo() {
+    return SizedBox(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: const [
+          MapsWidget(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 100.0),
+            child:
+                SizedBox(width: double.infinity, height: 130, child: SOSCall()),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +77,7 @@ class _RootVictimState extends State<RootVictim> {
         children: [
           getBody(),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
@@ -105,7 +122,7 @@ class _RootVictimState extends State<RootVictim> {
   Widget getBody() {
     return IndexedStack(
       index: pageIndex,
-      children: [pageOne(), const Text("2")],
+      children: [pageOne(), pageTwo()],
     );
   }
 

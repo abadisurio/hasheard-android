@@ -49,7 +49,7 @@ class _MapsWidgetState extends State<MapsWidget> {
       _controller.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-              target: LatLng(l.latitude! - 0.0035, l.longitude!), zoom: 15),
+              target: LatLng(l.latitude! - 0.0025, l.longitude!), zoom: 15),
         ),
       );
     });
@@ -73,7 +73,6 @@ class _MapsWidgetState extends State<MapsWidget> {
         // padding: EdgeInsets.only(
         //   bottom: MediaQuery.of(context).size.height - 700,
         // ),
-        padding: const EdgeInsets.only(bottom: 340),
         initialCameraPosition: CameraPosition(target: _initialcameraposition),
         mapType: MapType.normal,
         onMapCreated: _onMapCreated,
