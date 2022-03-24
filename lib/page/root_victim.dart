@@ -41,8 +41,7 @@ class _RootVictimState extends State<RootVictim> {
                       const Flexible(child: ShelterList()),
                     ],
                   ),
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(6.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 ),
               ),
             ),
