@@ -10,6 +10,8 @@ class RootPIC extends StatefulWidget {
 class _RootPICState extends State<RootPIC> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      body: Center(child: Text("PIC")),
+    );
   }
 }

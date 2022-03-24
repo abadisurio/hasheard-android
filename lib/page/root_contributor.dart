@@ -10,6 +10,8 @@ class RootContributor extends StatefulWidget {
 class _RootContributorState extends State<RootContributor> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      body: Center(child: Text("Contributor")),
+    );
   }
 }

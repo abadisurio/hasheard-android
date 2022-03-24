@@ -10,6 +10,8 @@ class RootVictim extends StatefulWidget {
 class _RootVictimState extends State<RootVictim> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Scaffold(
+      body: Center(child: Text("Victim")),
+    );
   }
 }
