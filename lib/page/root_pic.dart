@@ -27,7 +27,7 @@ class _RootPICState extends State<RootPIC> {
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          getBody(),
+          Flexible(child: getBody()),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -56,10 +56,6 @@ class _RootPICState extends State<RootPIC> {
           ),
         ],
       ),
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child:
-      // ),
     );
   }
 

@@ -27,7 +27,7 @@ class _RootContributorState extends State<RootContributor> {
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          getBody(),
+          Flexible(child: getBody()),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
