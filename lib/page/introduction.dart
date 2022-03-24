@@ -24,7 +24,7 @@ class _IntroductionState extends State<Introduction> {
 
   void finishIntro() async {
     bool isComplete = await saveData();
-    if (isComplete) Navigator.pushReplacementNamed(context, '/root-victim');
+    if (isComplete) Navigator.pushReplacementNamed(context, '/root');
   }
 
   Future<bool> saveData() async {

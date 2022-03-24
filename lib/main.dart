@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hasheard/page/register.dart';
 import 'package:hasheard/page/root.dart';
-import 'package:hasheard/page/root_victim.dart';
+import 'package:hasheard/page/shelter_detail.dart';
 import 'package:hasheard/page/signin.dart';
 import 'package:hasheard/page/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -119,9 +119,6 @@ class _MyAppState extends State<MyApp> {
           case '/':
             return CupertinoPageRoute(
                 builder: (_) => const RootPage(), settings: settings);
-          case '/root-victim':
-            return CupertinoPageRoute(
-                builder: (_) => const RootVictim(), settings: settings);
           case '/signin':
             return CupertinoPageRoute(
                 builder: (_) => const SignInPage(), settings: settings);
@@ -131,6 +128,9 @@ class _MyAppState extends State<MyApp> {
           case '/root':
             return CupertinoPageRoute(
                 builder: (_) => const RootPage(), settings: settings);
+          case '/shelter_detail':
+            return CupertinoPageRoute(
+                builder: (_) => const ShelterDetail(), settings: settings);
         }
         return null;
       },

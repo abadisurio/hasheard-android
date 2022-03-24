@@ -38,11 +38,11 @@ class _RootVictimState extends State<RootVictim> {
                           style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
-                      Flexible(child: ShelterList()),
+                      const Flexible(child: ShelterList()),
                     ],
                   ),
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(6.0)),
+                      const BorderRadius.vertical(top: Radius.circular(6.0)),
                 ),
               ),
             ),

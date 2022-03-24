@@ -9,7 +9,7 @@ class ShelterListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
         onPressed: () {
-          log("Pressed");
+          Navigator.pushNamed(context, '/shelter_detail');
         },
         icon: const Icon(Icons.night_shelter_rounded),
         label: Row(

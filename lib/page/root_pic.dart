@@ -15,14 +15,6 @@ class _RootPICState extends State<RootPIC> {
 
   @override
   Widget build(BuildContext context) {
-    List bottomItems = [
-      pageIndex == 0
-          ? "assets/images/explore_active_icon.svg"
-          : "assets/images/explore_icon.svg",
-      pageIndex == 1
-          ? "assets/images/likes_active_icon.svg"
-          : "assets/images/likes_icon.svg"
-    ];
     return Scaffold(
       appBar: getAppBar(),
       body: Stack(
