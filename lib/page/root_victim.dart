@@ -31,7 +31,7 @@ class _RootVictimState extends State<RootVictim> {
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          Flexible(child: getBody()),
+          getBody(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
