@@ -75,9 +75,8 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.red,
         primaryColor: const Color(0xffE2412D),
         appBarTheme: AppBarTheme(
-          toolbarTextStyle: TextStyle(color: Colors.grey.shade900),
-          backgroundColor: const Color(0xffffffff),
-        ),
+            backgroundColor: const Color(0xffffffff),
+            foregroundColor: Colors.grey.shade900),
         bottomSheetTheme:
             const BottomSheetThemeData(backgroundColor: Colors.transparent),
         elevatedButtonTheme: ElevatedButtonThemeData(
