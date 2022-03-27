@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hasheard/page/register.dart';
 import 'package:hasheard/page/root.dart';
 import 'package:hasheard/page/shelter_detail.dart';
+import 'package:hasheard/page/shelter_new.dart';
 import 'package:hasheard/page/signin.dart';
 import 'package:hasheard/page/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,6 +131,9 @@ class _MyAppState extends State<MyApp> {
           case '/shelter_detail':
             return CupertinoPageRoute(
                 builder: (_) => const ShelterDetail(), settings: settings);
+          case '/shelter_new':
+            return CupertinoPageRoute(
+                builder: (_) => const ShelterNew(), settings: settings);
         }
         return null;
       },

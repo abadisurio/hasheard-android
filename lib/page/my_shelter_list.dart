@@ -14,7 +14,7 @@ class _MyShelterListState extends State<MyShelterList> {
       padding: const EdgeInsets.only(bottom: 80.0),
       child: FloatingActionButton.extended(
         onPressed: () {
-          // Add your onPressed code here!
+          Navigator.pushNamed(context, '/shelter_new');
         },
         label: Row(children: [Icon(Icons.add), Text("Add New Shelter")]),
         backgroundColor: Colors.green,
