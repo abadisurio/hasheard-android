@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hasheard/widget/maps.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:place_picker/place_picker.dart';
 
 class ShelterNew extends StatefulWidget {
@@ -19,17 +21,67 @@ class _ShelterNewState extends State<ShelterNew> {
   List<bool> facility = [false, false];
   double? lat;
   double? lng;
-  String? name;
-  String? address;
-  String? description;
-  String? note;
+  String? picId;
   String? phone;
+  bool isLoading = false;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _additionalNoteController =
-      TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
+  CollectionReference shelterRef =
+      FirebaseFirestore.instance.collection('shelter');
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Alert"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<void> _addShelter() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+    context.loaderOverlay.show();
+    // Call the user's CollectionReference to add a new user
+    return shelterRef.add({
+      'picId': picId,
+      'name': _nameController.text,
+      'phone': _phoneController.text,
+      'note': _noteController.text,
+      'count_injury': 0,
+      'count_sick': 0,
+      'count_refugee': 0,
+      'lat': lat,
+      'lng': lng,
+      'created': DateTime.now().millisecondsSinceEpoch,
+      'bathroom': facility[0],
+      'bed': facility[1],
+      'food': false
+    }).then((value) {
+      log("Shelter Added");
+      Navigator.pop(context);
+      showMessage("Shelter Added!");
+      context.loaderOverlay.hide();
+    }).catchError((error) {
+      log("Failed to add shelter: $error");
+      showMessage("Failed to add shelter: $error");
+    });
+  }
 
   void _pickImage() async {
     // final ImagePicker _picker = ImagePicker();
@@ -152,7 +204,7 @@ class _ShelterNewState extends State<ShelterNew> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
-            controller: _additionalNoteController,
+            controller: _noteController,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Additional Note',
@@ -207,17 +259,19 @@ class _ShelterNewState extends State<ShelterNew> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add New Shelter"),
+    return LoaderOverlay(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Add New Shelter"),
+        ),
+        body: getBody(),
+        persistentFooterButtons: [
+          ElevatedButton.icon(
+              label: const Text("Save Shelter"),
+              onPressed: _addShelter,
+              icon: const Icon(Icons.save))
+        ],
       ),
-      body: getBody(),
-      persistentFooterButtons: [
-        ElevatedButton.icon(
-            label: const Text("Save Shelter"),
-            onPressed: () {},
-            icon: const Icon(Icons.save))
-      ],
     );
   }
 }
