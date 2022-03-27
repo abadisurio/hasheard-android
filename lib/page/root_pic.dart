@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasheard/page/my_shelter_list.dart';
 import 'package:hasheard/widget/maps.dart';
 
 class RootPIC extends StatefulWidget {
@@ -10,8 +11,13 @@ class RootPIC extends StatefulWidget {
 
 class _RootPICState extends State<RootPIC> {
   int pageIndex = 0;
-  List<IconData> bottomIcons = [Icons.map_sharp, Icons.sensors, Icons.person];
-  final List<bool> isSelected = [true, false, false];
+  List<IconData> bottomIcons = [
+    Icons.map_sharp,
+    Icons.night_shelter_rounded,
+    Icons.sensors,
+    Icons.person
+  ];
+  final List<bool> isSelected = [true, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +47,6 @@ class _RootPICState extends State<RootPIC> {
                           bottomIcons[index],
                           size: 35,
                         )))),
-                // Padding(
-                //   padding: const EdgeInsets.all(16.0),
-                //   child: Column(
-                //     children: [Icon(bottomIcons[0]), const Text("Maps")],
-                //   ),
-
                 onPressed: (int index) {
                   pageIndex = index;
                   setState(() {
@@ -74,10 +74,22 @@ class _RootPICState extends State<RootPIC> {
     return const MapsWidget();
   }
 
+  Widget pageTwo() {
+    return const MyShelterList();
+  }
+
+  Widget pageThree() {
+    return const MapsWidget();
+  }
+
+  Widget pageFour() {
+    return const MapsWidget();
+  }
+
   Widget getBody() {
     return IndexedStack(
       index: pageIndex,
-      children: [pageOne(), const Text("2")],
+      children: [pageOne(), pageTwo(), pageThree(), pageFour()],
     );
   }
 
