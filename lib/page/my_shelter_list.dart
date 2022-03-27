@@ -16,7 +16,7 @@ class _MyShelterListState extends State<MyShelterList> {
         onPressed: () {
           Navigator.pushNamed(context, '/shelter_new');
         },
-        label: Row(children: [Icon(Icons.add), Text("Add New Shelter")]),
+        label: Row(children: const [Icon(Icons.add), Text("Add New Shelter")]),
         backgroundColor: Colors.green,
       ),
     );

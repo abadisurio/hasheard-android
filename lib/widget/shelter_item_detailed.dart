@@ -51,11 +51,11 @@ class _ShelterItemState extends State<ShelterItemDetailed> {
                     food
                         ? const Chip(
                             avatar: Icon(Icons.fastfood), label: Text("Food"))
-                        : SizedBox(),
+                        : const SizedBox(),
                     bathroom
                         ? const Chip(
                             avatar: Icon(Icons.wc), label: Text("Bathroom"))
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
               ],
